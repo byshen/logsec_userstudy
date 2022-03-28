@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  vsftpdserver:
+    build: .
+    privileged: true
+    image: "vsftpd-image"
+    container_name: "vsftpd-server"
+    ports:
+      - "80:80"
+      - 0.0.0.0:20:20
+      - 0.0.0.0:21:21
+      - 21100-21110:21100-21110
+    volumes:
+      - ${etcdir}:/tmp/etc:ro
+      - ${docker_code}:/docker_code
+      # - /sys/kernel/debug:/sys/kernel/debug:rw
+      # - /lib/modules:/lib/modules:ro
+      # - /usr/src:/usr/src:ro
+      # - /etc/localtime:/etc/localtime:ro
+    command: /docker_code/docker/vsftpd/run.sh 
+   
+    tty: true
+    stdin_open: true

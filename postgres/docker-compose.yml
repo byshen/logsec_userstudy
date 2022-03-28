@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  postgres:
+    build: .
+    privileged: true
+    environment:
+      POSTGRES_USER: postgres
+    ports:
+        - "5432:5432"
+    volumes:
+      - ${conf}:/tmp/conf:ro
+      - ${sql}:/tmp/sql:ro
+      - ${docker_code}:/docker_code
+      # - /sys/kernel/debug:/sys/kernel/debug:rw
+      # - /lib/modules:/lib/modules:ro
+      # - /usr/src:/usr/src:ro
+      # - /etc/localtime:/etc/localtime:ro
+    command: /docker_code/docker/postgres/run.sh
+   
+    tty: true
+    stdin_open: true
