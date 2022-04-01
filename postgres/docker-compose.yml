@@ -8,8 +8,6 @@ services:
     ports:
         - "5432:5432"
     volumes:
-      - ${conf}:/tmp/conf:ro
-      - ${sql}:/tmp/sql:ro
       - ${docker_code}:/install
       # - /sys/kernel/debug:/sys/kernel/debug:rw
       # - /lib/modules:/lib/modules:ro
