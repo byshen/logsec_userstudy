@@ -3,6 +3,8 @@ services:
   postgres:
     build: .
     privileged: true
+    image: "postgres-image"
+    container_name: "postgres-server"
     environment:
       POSTGRES_USER: postgres
     ports:
@@ -13,7 +15,7 @@ services:
       # - /lib/modules:/lib/modules:ro
       # - /usr/src:/usr/src:ro
       # - /etc/localtime:/etc/localtime:ro
-    command: /install/run.sh
+    command: /install/postgres/run.sh
 
     tty: true
     stdin_open: true

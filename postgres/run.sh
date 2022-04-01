@@ -10,25 +10,39 @@ mount_overlay () {
 }
 
 # compile
-cd "/docker_code/app/postgresql-12.7"
+cd "/install/eval_postgres"
 
 prefix=/pgdatabase/data/
 
-if [ ! -f "Makefile" ]; then
-./configure 
+if [ ! -f "GNUmakefile" ]; then
+./configure --prefix=/opt/PostgreSQL
 fi
+
+
+# https://www.tecmint.com/install-postgresql-from-source-code-in-linux/
+
 
 # always run make && make install
 make -j8
+
+TYPE="enhancelog"
+
+
+# THIS is the version with enhanced logs
+if [[ $TYPE = "enhancelog" ]]; then
+    cp /install/eval_postgres/postgres-enhancelog /install/eval_postgres/src/backend/postgres
+fi
+
+
 sudo make install
-# export PATH=$PATH:/usr/local/pgsql/bin
-sudo ln /usr/local/pgsql/bin/* /usr/local/bin/
+# export PATH=$PATH:/opt/PostgreSQL/bin
+# sudo ln /opt/PostgreSQL/bin/* /usr/local/bin/
 
 # mount htdocs and conf in the container
 USER="postgres"
 sudo rm -rf /pgdatabase/data
 sudo mkdir -p /pgdatabase/data
-sudo chown -R postgres:postgres /pgdatabase/data
+sudo chown -R postgres. /pgdatabase/data
 
 initdb -D /pgdatabase/data/ -U postgres
 
@@ -45,13 +59,14 @@ initdb -D /pgdatabase/data/ -U postgres
 
 
 # mount_overlay /tmp/htdocs /tmp/overlay_htdocs /var/www/html
-sudo cp /tmp/conf/*.conf ${prefix} 
+# sudo cp /tmp/conf/*.conf ${prefix}
 echo "config done"
 
-# start nginx and reload config
-export PATH=$PATH:/usr/local/pgsql/bin
+export PATH=$PATH:/opt/PostgreSQL/bin
 pg_ctl -D /pgdatabase/data/ -l /pgdatabase/data/start.log start
 
+
+psql -f /install/postgres/experiment.sql
 # keep the container running, so we can attach to it
 echo "run 'sudo docker exec -it postgres_postgres_1 bash' to obtain a shell into the container"
 echo "run psql -p 5432 to connect to it"
