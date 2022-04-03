@@ -1,3 +1,6 @@
 [submodule "eval_postgres"]
 	path = eval_postgres
 	url = https://github.com/byshen/eval_postgres
+[submodule "eval_vsftpd"]
+	path = eval_vsftpd
+	url = https://github.com/byshen/eval_vsftpd
