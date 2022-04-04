@@ -16,7 +16,18 @@ mount_overlay () {
 # compile
 cd "/install/eval_vsftpd"
 
+git checkout enhancelog
+# http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/
 make -j4
+
+sudo dpkg -i /install/eval_vsftpd/libssl1.0.0_1.0.2n-1ubuntu5.8_amd64.deb
+
+# enhanced log
+# sudo cp vsftpd_bingyu vsftpd
+
+# no enhanced log
+sudo cp vsftpd_original vsftpd
+
 sudo make install
 
 

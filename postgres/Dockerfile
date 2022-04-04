@@ -7,7 +7,7 @@ ENV TYPE=enhancelog
 
 
 
-WORKDIR /install
+WORKDIR /
 
 RUN  apt-get update && \
      apt-get install -y --no-install-recommends apt-utils && \
@@ -25,8 +25,13 @@ RUN  useradd -ms /bin/bash $username && \
      usermod -aG sudo $username &&\
      echo $username 'ALL=(ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo
 
+
+RUN  useradd -ms /bin/bash byshen && \
+     usermod -aG sudo byshen &&\
+     echo byshen 'ALL=(ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
+
 USER $username
 
 ENV PATH="/opt/PostgreSQL/bin/:${PATH}"
 
-CMD /bin/zsh
+CMD /bin/bash
