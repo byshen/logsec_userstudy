@@ -26,13 +26,21 @@ sudo make install
 sudo cp -r /install/vsftpd/files/* /etc/
 
 # rootdir for each user
-sudo mkdir -p /home/$NEWFTPUSER/ftp/upload
+sudo mkdir -p /home/$NEWFTPUSER/ftp/files
 sudo chmod 550 /home/$NEWFTPUSER/ftp
-sudo chmod 750 /home/$NEWFTPUSER/ftp/upload
+sudo chmod 750 /home/$NEWFTPUSER/ftp/files
 sudo chown -R $NEWFTPUSER: /home/$NEWFTPUSER/ftp
 
+sudo cp -r /install/vsftpd/files/ftpuser1/* /home/ftpuser1/ftp/files/
 # dir for anno user
 sudo mkdir -p /var/ftp
+
+
+
+
+
+
+
 
 echo "config done"
 
