@@ -1,5 +1,8 @@
 
 ```bash
+git submodule update --init --recursive
+
+
 # compile it first!
 cd eval_postgres
 ./configure --prefix=/opt/PostgreSQL
@@ -10,4 +13,12 @@ make -j8
 cd ../postgres/
 docker-compose build
 docker-compose up
+
+
+# Vsftpd
+cd ../vsftpd/
+docker-compose build
+docker-compose up
+
+# need to run the command to show the differences before the participant
 ```
