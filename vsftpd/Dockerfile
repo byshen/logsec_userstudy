@@ -14,7 +14,7 @@ RUN  apt-get update && \
      apt-get install -y ftp
 
 
-RUN  apt-get install -y libssl1.1 libwrap0-dev
+RUN  apt-get install -y libssl1.1 libwrap0-dev netcat
 
 RUN  useradd -ms /bin/bash $username && \
      usermod -aG sudo $username &&\
