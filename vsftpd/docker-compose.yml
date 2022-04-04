@@ -9,15 +9,15 @@ services:
       - "80:80"
       - 0.0.0.0:20:20
       - 0.0.0.0:21:21
-      - 21100-21110:21100-21110
+      - 40000-40020:40000-40020
     volumes:
-      - ${etcdir}:/tmp/etc:ro
-      - ${docker_code}:/docker_code
+      - ${docker_code}:/install
+      # - ${etcdir}:/tmp/etc:ro
       # - /sys/kernel/debug:/sys/kernel/debug:rw
       # - /lib/modules:/lib/modules:ro
       # - /usr/src:/usr/src:ro
       # - /etc/localtime:/etc/localtime:ro
-    command: /docker_code/docker/vsftpd/run.sh 
-   
+    command: /install/vsftpd/run.sh
+
     tty: true
     stdin_open: true

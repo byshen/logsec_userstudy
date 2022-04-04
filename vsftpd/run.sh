@@ -2,7 +2,7 @@
 
 
 USER="vsftpd"
-NEWFTPUSER="newftpuser"
+NEWFTPUSER="ftpuser1"
 
 # mount_overlay source overlay target
 mount_overlay () {
@@ -14,33 +14,29 @@ mount_overlay () {
 
 
 # compile
-cd "/docker_code/app/vsftpd-3.0.3"
-
+cd "/install/eval_vsftpd"
 
 make -j4
 sudo make install
 
-sudo mkdir /etc/vsftpd/
 
-mount_overlay /tmp/etc /tmp/overlay_etc /etc/vsftpd/
+# prepare files
 
-# sudo touch /etc/vsftpd.chroot_list
-echo $NEWFTPUSER | sudo tee -a /etc/vsftpd/vsftpd.user_list
+# config
+sudo cp -r /install/vsftpd/files/* /etc/
+
+# rootdir for each user
 sudo mkdir -p /home/$NEWFTPUSER/ftp/upload
 sudo chmod 550 /home/$NEWFTPUSER/ftp
 sudo chmod 750 /home/$NEWFTPUSER/ftp/upload
 sudo chown -R $NEWFTPUSER: /home/$NEWFTPUSER/ftp
 
-echo -e '#!/bin/sh\necho "This account is limited to FTP access only."' | sudo tee -a  /bin/ftponly
-
-echo "/bin/ftponly" | sudo tee -a /etc/shells
-
-sudo usermod $NEWFTPUSER -s /bin/ftponly
-
+# dir for anno user
+sudo mkdir -p /var/ftp
 
 echo "config done"
 
-sudo /usr/local/sbin/vsftpd  /etc/vsftpd/vsftpd.conf &
+sudo /usr/local/sbin/vsftpd  /etc/vsftpd.conf &
 
 
 
