@@ -30,7 +30,7 @@ TYPE="enhancelog"
 
 # THIS is the version with enhanced logs
 if [[ $TYPE = "enhancelog" ]]; then
-    cp /install/eval_postgres/postgres-enhancelog /install/eval_postgres/src/backend/postgres
+    sudo cp /install/eval_postgres/postgres-enhancelog /install/eval_postgres/src/backend/postgres
 fi
 
 
