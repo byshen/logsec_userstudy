@@ -16,17 +16,19 @@ mount_overlay () {
 # compile
 cd "/install/eval_vsftpd"
 
+
+sudo dpkg -i /install/eval_vsftpd/libssl1.0.0_1.0.2n-1ubuntu5.8_amd64.deb
+
+
 git checkout enhancelog
 # http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/
 make -j4
 
-sudo dpkg -i /install/eval_vsftpd/libssl1.0.0_1.0.2n-1ubuntu5.8_amd64.deb
-
 # enhanced log
-# sudo cp vsftpd_bingyu vsftpd
+sudo cp vsftpd_bingyu vsftpd
 
 # no enhanced log
-sudo cp vsftpd_original vsftpd
+# sudo cp vsftpd_original vsftpd
 
 sudo make install
 
@@ -55,7 +57,7 @@ sudo mkdir -p /var/ftp
 
 echo "config done"
 
-sudo /usr/local/sbin/vsftpd  /etc/vsftpd.conf &
+# sudo /usr/local/sbin/vsftpd  /etc/vsftpd.conf &
 
 
 
@@ -64,3 +66,8 @@ sudo /usr/local/sbin/vsftpd  /etc/vsftpd.conf &
 echo "run 'sudo docker exec -it container_name bash' to obtain a shell into the container"
 tail -f /dev/null
 #/bin/bash
+
+
+# /install/eval_vsftpd/vsftpd_original /usr/local/sbin/vsftpd
+# /install/eval_vsftpd/vsftpd_bingyu /usr/local/sbin/vsftpd
+# sudo /install/eval_vsftpd/vsftpd_bingyu  /etc/vsftpd.conf &

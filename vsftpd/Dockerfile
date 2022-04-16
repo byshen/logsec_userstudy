@@ -6,7 +6,7 @@ ARG username=ftp-admin
 ARG testuser=ftpuser1
 ARG pass=ftpuser1-pass
 
-WORKDIR /
+
 
 RUN  apt-get update && \
      apt-get install -y vim git gcc wget make cmake sudo zsh && \
@@ -15,6 +15,8 @@ RUN  apt-get update && \
 
 
 RUN  apt-get install -y openssl libssl-dev libwrap0-dev netcat
+
+RUN  apt-get install -y lsof ufw
 
 RUN  useradd -ms /bin/bash $username && \
      usermod -aG sudo $username &&\
@@ -37,3 +39,4 @@ RUN  useradd -ms /bin/bash ftpuser3 &&\
 USER $username
 
 CMD /bin/bash
+WORKDIR /home/$username
